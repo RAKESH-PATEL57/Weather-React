@@ -1,12 +1,13 @@
-
+import Header from "../Components/Header"
+import Home from "../Components/Home"
+import "./Scss/style.css";
 function App() {
  
 
   return (
     <>
-      <div>
-        <h1>Hello Bhai</h1>
-      </div>
+      <Header />
+      <Home />
     </>
   )
 }
