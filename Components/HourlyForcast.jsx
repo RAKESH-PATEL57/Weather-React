@@ -51,46 +51,6 @@ function HourlyForcast()
             sTimeFrmt = {sTimeFormate}    
             />
             
-            <HourContents 
-            fHr = {fHour} 
-            sHr = {sHour}
-            fTimeFrmt = {fTimeFormate}    
-            sTimeFrmt = {sTimeFormate}    
-            />
-            
-            <HourContents 
-            fHr = {fHour} 
-            sHr = {sHour}
-            fTimeFrmt = {fTimeFormate}    
-            sTimeFrmt = {sTimeFormate}    
-            />
-            
-            <HourContents 
-            fHr = {fHour} 
-            sHr = {sHour}
-            fTimeFrmt = {fTimeFormate}    
-            sTimeFrmt = {sTimeFormate}    
-            />
-            
-            <HourContents 
-            fHr = {fHour} 
-            sHr = {sHour}
-            fTimeFrmt = {fTimeFormate}    
-            sTimeFrmt = {sTimeFormate}    
-            />
-            <HourContents 
-            fHr = {fHour} 
-            sHr = {sHour}
-            fTimeFrmt = {fTimeFormate}    
-            sTimeFrmt = {sTimeFormate}    
-            />
-            <HourContents 
-            fHr = {fHour} 
-            sHr = {sHour}
-            fTimeFrmt = {fTimeFormate}    
-            sTimeFrmt = {sTimeFormate}    
-            />
-            
          
           </div>
         </div>
