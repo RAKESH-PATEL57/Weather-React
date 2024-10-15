@@ -38,7 +38,7 @@ function SevenDaysForecast()
 
     return (
         <div className="sevendays">
-        <h3>7 days forecast</h3>
+        <h3>5 days forecast</h3>
         <div className="forecastcontainer">
           <SevenDaysNamesWeather 
             generateDay = {generatingDay(i++)} 
@@ -55,14 +55,6 @@ function SevenDaysForecast()
           <SevenDaysNamesWeather 
             generateDay = {generatingDay(i++)} 
             imageLink = "/src/assets/gifs/sunandcloud2.gif"
-          />
-          <SevenDaysNamesWeather 
-            generateDay = {generatingDay(i++)} 
-            imageLink = "/src/assets/gifs/sunandcloud.gif"
-          />
-          <SevenDaysNamesWeather 
-            generateDay = {generatingDay(i++)} 
-            imageLink = "/src/assets/gifs/sunnyrain.gif"
           />
           <SevenDaysNamesWeather 
             generateDay = {generatingDay(i++)} 
