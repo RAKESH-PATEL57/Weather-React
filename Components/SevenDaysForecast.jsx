@@ -1,7 +1,6 @@
 import SevenDaysNamesWeather from "./SevenDaysNamesWeather";
 function SevenDaysForecast()
 {
-
   // let sevenDaysList = document.querySelectorAll(".seven-days-list");
   const date = new Date();
   const weekDaysNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday','Friday','Saturday'];
@@ -55,6 +54,14 @@ function SevenDaysForecast()
           <SevenDaysNamesWeather 
             generateDay = {generatingDay(i++)} 
             imageLink = "/src/assets/gifs/sunandcloud2.gif"
+          />
+          <SevenDaysNamesWeather 
+            generateDay = {generatingDay(i++)} 
+            imageLink = "/src/assets/gifs/sunandcloud.gif"
+          />
+          <SevenDaysNamesWeather 
+            generateDay = {generatingDay(i++)} 
+            imageLink = "/src/assets/gifs/sunnyrain.gif"
           />
           <SevenDaysNamesWeather 
             generateDay = {generatingDay(i++)} 
