@@ -401,11 +401,14 @@ input[type=text]:focus {
   font-weight: 500;
 }
 
-.time .hour-temperatures {
-  border-radius: 1rem;
-  width: -moz-max-content;
-  width: max-content;
+.time .temp-container {
+  position: relative;
   padding: 0.6rem;
+}
+
+.temp-container .hour-temperatures {
+  border-radius: 1rem;
+  padding: 0.4rem;
   background: var(--btnbg-color);
   margin-top: 1rem;
   position: relative;
@@ -551,17 +554,32 @@ input[type=text]:focus {
   position: relative;
 }
 
-.imageContainer .loading {
+.loading {
   position: absolute;
-  height: 100%;
+  top: -4%;
+  left: 0;
   width: 100%;
-  background: rgb(95, 94, 94);
+  height: 100%;
+  z-index: 10;
+  background: linear-gradient(90deg, #c7c7c7, #106f7c, #575757, #c7c7c7);
+  background-size: 200%;
+  animation: loadingAnimation 1s infinite alternate-reverse;
+  -webkit-animation: loadingAnimation 1s infinite alternate-reverse;
+  border-radius: 0.5rem;
+  -webkit-border-radius: 0.5rem;
+  -moz-border-radius: 0.5rem;
+  -ms-border-radius: 0.5rem;
+  -o-border-radius: 0.5rem;
 }
 
-img {
-  z-index: -1;
+@keyframes loadingAnimation {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
 }
-
 /***************   responssive section   ******************/
 @media (max-width: 1500px) {
   html {
