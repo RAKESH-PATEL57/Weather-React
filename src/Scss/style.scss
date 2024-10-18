@@ -93,7 +93,6 @@ body, html
     width: 0;
 }
 
-
 header
 {
     position: fixed;
@@ -468,23 +467,6 @@ input[type="text"]:focus {
     font-weight: 500;
 }
 
-/* .time button
-{
-    border-radius:1rem;
-    width: max-content;
-    padding: .6rem;
-    cursor: pointer;
-    background: var(--btnbg-color);
-    margin-top: 1rem;
-    position: relative;
-    overflow: hidden;
-    border: 1px solid var(--btn-border-color);
-    color: var(--font-color);
-    transition: .5s;
-    box-shadow: 0px 0px 10px var(--shadow_all);
-    font-weight: 600;
-} */
-
 .time .hour-temperatures
 {
     border-radius:1rem;
@@ -656,19 +638,26 @@ input[type="text"]:focus {
 
 
 
-
-/***********   Model section designing  *******************/
-/* .model
+//************* loading Section [[[[[[[[[ Start ]]]]]]]]]]]*******************
+.imageContainer
 {
-    height: 80vh;
-    width: 40vw;
+    position: relative;
+}
+.imageContainer .loading
+{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: rgb(95, 94, 94);
 }
 
-.model model-viewer
+img
 {
-    height: 80vh;
-    width: 40vw;
-} */
+    z-index: -1;
+}
+
+//************* loading Section [[[[[[[[[  End  ]]]]]]]]]]]*******************
+
 
 
 /***************   responssive section   ******************/
