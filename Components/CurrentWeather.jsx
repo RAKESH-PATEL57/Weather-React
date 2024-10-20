@@ -13,8 +13,6 @@ function CurrentWeather(props)
 
   const currentFullDate = `${day} ${month} ${year}`;
 
- 
-
 
     return (
         <>
