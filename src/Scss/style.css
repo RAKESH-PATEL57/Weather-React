@@ -484,10 +484,9 @@ input[type=text]:focus {
 }
 
 /******* 7 days forcast section  designing  *********/
-.sevendays {
+.sevendaysContainer {
   width: 25vw;
   box-shadow: inset 0px 0px 10px var(--shadow_all);
-  /* background: var(--sevendays-bg-color); */
   background: transparent;
   -webkit-backdrop-filter: blur(5px);
           backdrop-filter: blur(5px);
@@ -509,17 +508,17 @@ input[type=text]:focus {
     background-position: 50% 100%;
   }
 }
-.sevendays > h3 {
+.sevendaysContainer > h3 {
   font-size: 1.5rem;
-  color: white;
+  color: var(--font-color);
   text-align: center;
 }
 
-.home .sevendays .forecastcontainer {
+.home .sevendaysContainer .forecastcontainer {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  /* width:max-content; */
+  gap: 0.3rem;
 }
 
 .days {
@@ -556,6 +555,15 @@ input[type=text]:focus {
 
 .currentTemp {
   position: relative;
+}
+
+.sevenDaysTempContainer {
+  position: relative;
+}
+
+.sevenDaysWeatherImageContainer {
+  position: relative;
+  padding: 0.1rem;
 }
 
 .loading {
@@ -716,11 +724,4 @@ input[type=text]:focus {
 
 .suggestions-list li:last-child {
   border-bottom: none;
-}
-
-/* Loading state style */
-.loading {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #666;
 }/*# sourceMappingURL=style.css.map */
