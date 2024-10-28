@@ -494,21 +494,21 @@ input[type="text"]:focus {
 {
     box-shadow: 0px 0px 10px var(--shadow_all),
                 0px 0px 30px var(--shadow_all);
+                
 }
 
-.hour-temperatures:hover::after
-{
-    content: '';
-    position: absolute;
-    border: 3px solid aqua;
-    box-shadow: 0px 0px 10px red;
-    top: 0;
-    left: -15%;
-    height: 100%;
-    transform: rotateZ(-200deg);
-    animation: btnHover .3s linear;
-    opacity: .5;
-}
+// .hour-temperatures:hover::after
+// {
+//     content: '';
+//     position: absolute;
+//     border: 3px solid aqua;
+//     top: 0;
+//     left: -15%;
+//     height: 100%;
+//     transform: rotateZ(-200deg);
+//     animation: btnHover .3s linear;
+//     opacity: .5;
+// }
 
 @keyframes btnHover
 {
@@ -651,6 +651,11 @@ input[type="text"]:focus {
 }
 
 .currentTemp
+{
+    position: relative;
+}
+
+.humidity
 {
     position: relative;
 }
