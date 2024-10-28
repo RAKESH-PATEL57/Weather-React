@@ -15,7 +15,6 @@ function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
   const debounceTimeoutRef = useRef(null);
 
   // Getting the current date
@@ -24,7 +23,6 @@ function Home() {
 
   // Function to fetch location suggestions from OpenStreetMap API
   const fetchSuggestions = async (query) => {
-    setIsLoading(true);
     try {
       const response = await fetch(
         `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&addressdetails=1&limit=5`
@@ -33,8 +31,6 @@ function Home() {
       setSuggestions(data); // Update suggestions based on response
     } catch (error) {
       console.error("Error fetching suggestions:", error);
-    } finally {
-      setIsLoading(false); // Stop loading
     }
   };
 
@@ -60,7 +56,6 @@ function Home() {
 
   // Handle click on a suggestion
   const handleSuggestionClick = (suggestion) => {
-    // Extract only the main place name before the first comma
     const placeName = suggestion.display_name.split(",")[0].trim(); 
 
     setSelectedLocation({
@@ -103,7 +98,7 @@ function Home() {
         setLoading(true);
         try {
           const response = await axios.get(
-            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_120m&timezone=auto`
+            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_120m,weather_code&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,weathercode&timezone=auto`
           );
           setWeatherData(response.data); // Update weather data
         } catch (error) {
@@ -119,7 +114,8 @@ function Home() {
 
   // Get the current temperature or default to 0
   const currentHour = new Date().getHours();
-  const currentTemperature = Math.round(weatherData.hourly?.temperature_120m?.[currentHour - 1] ?? 0);
+  const currentTemperature = weatherData.hourly?.temperature_120m?.[currentHour - 1] ?? 0;
+
 
   return (
     <section className="home-section">
@@ -175,12 +171,18 @@ function Home() {
 
           {/* Hourly forecast */}
           {weatherData.hourly ? (
-            <HourlyForcast tempInEachHour={weatherData.hourly} loading={loading} />
+            <HourlyForcast weatherData={weatherData.hourly} loading={loading} />
           ) : (
             <div>Loading forecast...</div>
           )}
         </div>
-        <SevenDaysForecast />
+
+      
+
+        {/* Pass weatherData.daily to SevenDaysForecast */}
+        {weatherData.daily && (
+          <SevenDaysForecast weatherData={weatherData.daily} loading={loading}/>
+        )}
       </div>
     </section>
   );
