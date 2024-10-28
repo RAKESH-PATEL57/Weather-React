@@ -1,9 +1,10 @@
 /* eslint-disable react/prop-types */
 import HourContents from "./HourContents";
 
-function HourlyForcast(props)
+function HourlyForcast({weatherData, loading})
 {   
 
+    
     let currentHour = new Date().getHours();
 
     const time = [
@@ -75,17 +76,15 @@ function HourlyForcast(props)
         <div className="hour-forecast">
           <div className="hour-forecast-container">
             {/* {generatingHourContents()} */}
-            {time.map((elem) => {
+            {time.map((elem, index) => {
                 return (
-                
                 <HourContents 
                 key = {elem.id}
                 fHr = {elem.fHour % 24} 
-                sHr = {elem.sHour % 24} 
-                // eslint-disable-next-line react/prop-types
-                loading = {props.loading}
-                temp = {elem.fHour-1}
-                tempInEachHour = {props.tempInEachHour}
+                sHr = {elem.sHour % 24}
+                loading = {loading}
+                temp = {weatherData.temperature_120m[elem.fHour-1]}
+                weatherCode = {weatherData.weather_code[index]}
                 />
                 );
             })}
