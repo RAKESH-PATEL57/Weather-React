@@ -540,6 +540,10 @@ input[type=text]:focus {
   position: relative;
 }
 
+.current-img-container {
+  position: relative;
+}
+
 .currentTemp {
   position: relative;
 }
