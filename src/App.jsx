@@ -1,5 +1,5 @@
-import Header from "../Components/Header"
-import Home from "../Components/Home"
+import Header from "./Components/Header"
+import Home from "./Components/Home"
 import "./Scss/style.css";
 function App() {
  

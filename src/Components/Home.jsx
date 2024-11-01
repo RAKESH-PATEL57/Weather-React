@@ -5,6 +5,8 @@ import axios from "axios";
 import GettingWeatherImage from "./GettingWeatherImage";
 import Alert from "./Alert";
 
+import image from "/public/assets/bg.jpg";
+
 function Home() {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
@@ -131,7 +133,7 @@ function Home() {
   return (
     <section className="home-section">
       <div className="bg">
-        <img id="bg-image" loading="lazy" src="/public/assets/bg.jpg" alt="Background" />
+        <img id="bg-image" loading="lazy" src={image} alt="Background" />
       </div>
       <div className="home">
         <div className="weather-details">
