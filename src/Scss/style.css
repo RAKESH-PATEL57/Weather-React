@@ -162,18 +162,6 @@ nav .light-mood.light-mood-on_off {
   opacity: 1;
 }
 
-/* .home-section::before
-{
-    content: '';
-    position: absolute;
-    background: url(./bg-images/lake-4541454_1920.jpg) no-repeat;
-    background-size: cover;
-    height: 100%;
-    width: 100%;
-    /* filter: blur(5px); */
-/* opacity: .8; 
-    /* overflow-y: hidden; 
-} */
 .home-section .bg {
   position: absolute;
   height: 100%;
@@ -187,7 +175,7 @@ nav .light-mood.light-mood-on_off {
   height: 100%;
   width: 100%;
   z-index: 0;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .home {
@@ -223,6 +211,27 @@ nav .light-mood.light-mood-on_off {
   position: fixed;
   /* border: 2px solid red; */
   /* transition:all 3s linear; */
+}
+
+#defaultInputPlace {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  width: 20rem;
+  background: transparent;
+}
+
+#defaultInputPlace input {
+  background: transparent;
+  color: var(--font-color);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  border: 2px solid var(--font-color);
 }
 
 .search-section input {
@@ -269,6 +278,39 @@ input[type=text]:focus {
 
 .search-section .search-btn i:hover {
   color: var(--caret-color);
+}
+
+.suggestions-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 300px;
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  position: absolute;
+  z-index: 1;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 17rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.suggestions-list li {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  transition: background-color 0.2s;
+}
+
+.suggestions-list li:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.suggestions-list li:last-child {
+  border-bottom: none;
 }
 
 /****   current location weather details section designing   *************/
@@ -497,8 +539,12 @@ input[type=text]:focus {
 }
 .sevendaysContainer > h3 {
   font-size: 1.5rem;
-  color: var(--font-color);
+  color: var(--main-color);
   text-align: center;
+}
+
+.sevendaysContainer h4 {
+  font-size: 1.3rem;
 }
 
 .home .sevendaysContainer .forecastcontainer {
@@ -536,11 +582,65 @@ input[type=text]:focus {
   color: var(--font-color);
 }
 
+.alertMessage {
+  position: absolute;
+  z-index: 1000;
+  text-align: center;
+  color: var(--font-color);
+  overflow: hidden;
+  height: 20rem;
+  width: 35rem;
+  left: 50%;
+  top: 5%;
+  font-size: 0.8rem;
+  font-weight: 200;
+  transform: translate(-50%, 0%);
+  -webkit-transform: translate(-50%, 0%);
+  -moz-transform: translate(-50%, 0%);
+  -ms-transform: translate(-50%, 0%);
+  -o-transform: translate(-50%, 0%);
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+  border-radius: 1rem;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
+}
+
+.alertMessage h2 {
+  border: 2px solid var(--main-color);
+  box-shadow: 0rem 0rem 0.5rem var(--main-color);
+  border-radius: 1rem;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
+  color: var(--main-color);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+}
+
+@keyframes alertMessage {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
 .imageContainer {
   position: relative;
 }
 
 .current-img-container {
+  position: relative;
+}
+
+.currentPlaceName {
   position: relative;
 }
 
@@ -592,6 +692,9 @@ input[type=text]:focus {
   html {
     font-size: 88%;
   }
+  .suggestions-list {
+    margin-top: 20rem;
+  }
 }
 @media (max-width: 1035px) {
   .home {
@@ -599,16 +702,14 @@ input[type=text]:focus {
     overflow: scroll;
   }
   .home .weather-details {
-    /* border: 2px solid rgb(0, 255, 47); */
     width: 90%;
     margin-left: 0%;
   }
   .current-img-temp img {
-    /* border: 2px solid red; */
     height: 10rem;
     width: 17vw;
   }
-  .sevendays {
+  .sevendaysContainer {
     width: 90%;
     margin: 0;
   }
@@ -619,16 +720,21 @@ input[type=text]:focus {
     width: 100%;
   }
 }
-@media (max-width: 725px) {
+@media (max-width: 765px) {
+  html {
+    font-size: 80%;
+  }
+  .currentPlaceName {
+    margin-top: 5rem;
+  }
   .current-img-temp img {
-    /* border: 2px solid red; */
     height: 10rem;
     width: 20vw;
   }
 }
 @media (max-width: 590px) {
   .home .weather-details {
-    margin-top: 5rem;
+    margin-top: 3rem;
   }
   .home .weather-details .search-section {
     top: 8%;
@@ -640,6 +746,9 @@ input[type=text]:focus {
   }
 }
 @media (max-width: 480px) {
+  html {
+    font-size: 78%;
+  }
   .bg {
     opacity: 0.6;
   }
@@ -654,21 +763,9 @@ input[type=text]:focus {
     text-align: center;
     gap: 1rem;
   }
-  .place-report h1 {
-    font-size: 3rem;
-  }
-  .place-report h3 {
-    font-size: 8vw;
-  }
-  .current-img-temp h3 {
-    font-size: 15vw;
-  }
   .current-img-temp img {
     height: 12rem;
     width: 12rem;
-  }
-  .hour-forecast .hour-content .time button {
-    padding: 0.3rem;
   }
   .less-Details::-webkit-scrollbar {
     width: 12px;
@@ -683,40 +780,10 @@ input[type=text]:focus {
     height: 45vh;
     margin-right: 1rem;
   }
-  .hour-forecast .less-Details .hour-content {
-    height: 13rem;
-    padding: 1rem;
+  .sevendaysContainer h3 {
+    font-size: 1.6rem;
   }
-}
-.suggestions-list {
-  list-style: none;
-  padding: 0;
-  margin-top: 5px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  width: 300px;
-  background: rgba(255, 255, 255, 0.1);
-  -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
-  position: absolute;
-  z-index: 1;
-  max-height: 200px;
-  overflow-y: auto;
-  margin-top: 17rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-}
-
-.suggestions-list li {
-  padding: 10px;
-  cursor: pointer;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  transition: background-color 0.2s;
-}
-
-.suggestions-list li:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-
-.suggestions-list li:last-child {
-  border-bottom: none;
+  .sevendaysContainer h4 {
+    font-size: 1.3rem;
+  }
 }/*# sourceMappingURL=style.css.map */
