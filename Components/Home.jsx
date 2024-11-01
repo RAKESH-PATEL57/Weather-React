@@ -131,7 +131,7 @@ function Home() {
   return (
     <section className="home-section">
       <div className="bg">
-        <img id="bg-image" loading="lazy" src="/src/assets/bg.jpg" alt="Background" />
+        <img id="bg-image" loading="lazy" src="/public/assets/bg.jpg" alt="Background" />
       </div>
       <div className="home">
         <div className="weather-details">
