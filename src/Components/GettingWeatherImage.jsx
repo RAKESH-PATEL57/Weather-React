@@ -12,47 +12,47 @@ function GettingWeatherImage(weatherCode) {
   
     switch (weatherCode) {
       case 0: // Clear sky
-        return {clearSky};
+        return clearSky;
       case 1: // Mainly clear
       case 2: // Partly cloudy
       case 3: // Overcast
-        return {partlyCloudy};
+        return partlyCloudy;
       case 45: // Fog
       case 48: // Depositing rime fog
-        return {overCast};
+        return overCast;
       case 51: // Drizzle: Light intensity
       case 53: // Drizzle: Moderate intensity
       case 55: // Drizzle: Dense intensity
-        return {lighting};
+        return lighting;
       case 56: // Freezing Drizzle: Light intensity
       case 57: // Freezing Drizzle: Dense intensity
-        return {snowFall};
+        return snowFall;
       case 61: // Rain: Slight intensity
       case 63: // Rain: Moderate intensity
       case 65: // Rain: Heavy intensity
-        return {slightModerate};
+        return slightModerate;
       case 66: // Freezing Rain: Light intensity
       case 67: // Freezing Rain: Heavy intensity
       case 71: // Snow fall: Slight intensity
       case 73: // Snow fall: Moderate intensity
       case 75: // Snow fall: Heavy intensity
       case 77: // Snow grains
-        return {snowFall};
+        return snowFall;
       case 80: // Rain showers: Slight intensity
       case 81: // Rain showers: Moderate intensity
       case 82: // Rain showers: Violent intensity
-        return {heavyRain};
+        return heavyRain;
       case 85: // Snow showers: Slight intensity
       case 86: // Snow showers: Heavy intensity
-        return {snowFall};
+        return snowFall;
       case 95: // Thunderstorm: Slight or moderate intensity
-        return {thunderStorm};
+        return thunderStorm;
       case 96: // Thunderstorm with slight hail
       case 99: // Thunderstorm with heavy hail
-        return {thunderStorm};
+        return thunderStorm;
       default:
         // console.log("Default image used for weatherCode:", weatherCode); // Debugging line
-        return {defaultImage};
+        return defaultImage;
     }
   }
   

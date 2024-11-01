@@ -265,8 +265,24 @@ nav .light-mood.light-mood-on_off
     -moz-transform: translate(-50%,-50%);
     -ms-transform: translate(-50%,-50%);
     -o-transform: translate(-50%,-50%);
-    width: 20rem;
+    width: 25rem;
     background: transparent;
+  
+}
+
+#defaultHeadingTemp
+{
+    position: absolute;
+    color: var(--font-color);
+    bottom: 150%;
+    font-size: 3rem;
+    width: 30rem;
+    left: 50%;
+    transform: translate(-50%);
+    -webkit-transform: translate(-50%);
+    -moz-transform: translate(-50%);
+    -ms-transform: translate(-50%);
+    -o-transform: translate(-50%);
 }
 
 #defaultInputPlace input

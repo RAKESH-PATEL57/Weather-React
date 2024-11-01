@@ -138,6 +138,7 @@ function Home() {
       <div className="home">
         <div className="weather-details">
           <div className="search-section" id={defaultInputPlace ? "defaultInputPlace" :""}>
+          {defaultInputPlace ? <h1 id="defaultHeadingTemp">Weather Forecast</h1> : ""}
             <input
               className="place"
               type="text"
