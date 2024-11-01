@@ -2,6 +2,8 @@
 
 A responsive weather forecast website that provides real-time weather information based on the user's location or a selected city. This application displays the current temperature, humidity, and a weather icon corresponding to the weather conditions. Users can also view hourly and seven-day forecasts for more in-depth weather insights.
 
+## Live Demo [here](https://weather-forecast-rakeshpatel57.netlify.app/)
+
 ## Features
 
 - **Geolocation-Based Weather Data**: Automatically fetches weather details based on the user's current location.
