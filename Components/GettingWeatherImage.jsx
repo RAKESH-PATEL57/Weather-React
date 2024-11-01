@@ -41,7 +41,7 @@ function GettingWeatherImage(weatherCode) {
       case 99: // Thunderstorm with heavy hail
         return "/src/assets/gifs/thunderStorm.gif";
       default:
-        console.log("Default image used for weatherCode:", weatherCode); // Debugging line
+        // console.log("Default image used for weatherCode:", weatherCode); // Debugging line
         return "/src/assets/gifs/default.gif";
     }
   }
