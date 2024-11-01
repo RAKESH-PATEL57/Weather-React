@@ -3,6 +3,7 @@ import HourlyForcast from "./HourlyForcast";
 import SevenDaysForecast from "./SevenDaysForecast";
 import axios from "axios";
 import GettingWeatherImage from "./GettingWeatherImage";
+import Alert from "./Alert";
 
 function Home() {
   const [latitude, setLatitude] = useState(null);
@@ -13,6 +14,7 @@ function Home() {
   const [suggestions, setSuggestions] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [geolocationDenied, setGeolocationDenied] = useState(false);
+  const [defaultInputPlace, setDefaultInputPlace] = useState(true);
   const debounceTimeoutRef = useRef(null);
 
   const date = new Date();
@@ -48,6 +50,7 @@ function Home() {
   };
 
   const handleSuggestionClick = (suggestion) => {
+    setDefaultInputPlace(false);   ///input section
     const primaryName = suggestion.display_name.split(",")[0].trim();
     setSelectedLocation({
       displayName: primaryName,
@@ -83,6 +86,7 @@ function Home() {
     };
 
     const showPosition = (position) => {
+      setDefaultInputPlace(false);   ///input section
       const lat = position.coords.latitude;
       const lon = position.coords.longitude;
       setLatitude(lat);
@@ -127,11 +131,11 @@ function Home() {
   return (
     <section className="home-section">
       <div className="bg">
-        <img id="bg-image" src="/src/assets/bg.jpg" alt="Background" />
+        <img id="bg-image" loading="lazy" src="/src/assets/bg.jpg" alt="Background" />
       </div>
       <div className="home">
         <div className="weather-details">
-          <div className="search-section">
+          <div className="search-section" id={defaultInputPlace ? "defaultInputPlace" :""}>
             <input
               className="place"
               type="text"
@@ -140,9 +144,9 @@ function Home() {
               onChange={handleInputChange}
               required
             />
-            <button className="search-btn">
+            {/* <button className="search-btn">
               <i className="bi bi-search"></i>
-            </button>
+            </button> */}
             {suggestions.length > 0 && (
               <ul className="suggestions-list">
                 {suggestions.map((suggestion) => (
@@ -160,9 +164,12 @@ function Home() {
           {(latitude && longitude) || selectedLocation ? (
             <div className="current-location">
               <div className="place-report">
-                <h1 className="currentPlace">
-                  At - <span id="currentPlaceName">{selectedLocation ? selectedLocation.displayName : ""}</span>
-                </h1>
+                <div className="currentPlaceName">
+                  {loading ? <div className="loading"></div> : null}
+                  <h1 className="currentPlace">
+                    At - <span id="currentPlaceName">{selectedLocation ? selectedLocation.displayName : ""}</span>
+                  </h1>
+                </div>
                 <h3 className="dt">Date - {currentFullDate}</h3>
                 <div className="humidity">
                   {loading ? <div className="loading"></div> : null}
@@ -181,7 +188,7 @@ function Home() {
               </div>
             </div>
           ) : (
-            <p>Please enter a location to see weather details.</p>
+            geolocationDenied ? <Alert /> : null
           )}
 
           {weatherData.hourly && (
