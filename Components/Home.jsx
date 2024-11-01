@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import HourlyForcast from "./HourlyForcast";
 import SevenDaysForecast from "./SevenDaysForecast";
 import axios from "axios";
+import GettingWeatherImage from "./GettingWeatherImage";
 
 function Home() {
   const [latitude, setLatitude] = useState(null);
@@ -11,6 +12,7 @@ function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [geolocationDenied, setGeolocationDenied] = useState(false);
   const debounceTimeoutRef = useRef(null);
 
   const date = new Date();
@@ -46,16 +48,29 @@ function Home() {
   };
 
   const handleSuggestionClick = (suggestion) => {
-    const placeName = suggestion.display_name.split(",")[0].trim();
+    const primaryName = suggestion.display_name.split(",")[0].trim();
     setSelectedLocation({
-      displayName: suggestion.display_name,
+      displayName: primaryName,
       lat: suggestion.lat,
       lon: suggestion.lon,
     });
     setLatitude(suggestion.lat);
     setLongitude(suggestion.lon);
-    setSearchQuery(placeName);
+    setSearchQuery(primaryName); // Set only the primary name in the search box
     setSuggestions([]);
+  };
+
+  const fetchPlaceName = async (lat, lon) => {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&addressdetails=1`
+      );
+      const data = await response.json();
+      const primaryName = data.display_name.split(",")[0].trim();
+      setSelectedLocation({ displayName: primaryName });
+    } catch (error) {
+      console.error("Error fetching place name:", error);
+    }
   };
 
   useEffect(() => {
@@ -68,12 +83,19 @@ function Home() {
     };
 
     const showPosition = (position) => {
-      setLatitude(position.coords.latitude);
-      setLongitude(position.coords.longitude);
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      setLatitude(lat);
+      setLongitude(lon);
+      fetchPlaceName(lat, lon); // Fetch place name based on coordinates
     };
 
     const showError = (error) => {
+      if (error.code === error.PERMISSION_DENIED) {
+        setGeolocationDenied(true);
+      }
       console.log("Error getting location:", error);
+      // alert("Please enter the place name or allow the location to see the weather forecast");
     };
 
     getLocation();
@@ -85,7 +107,7 @@ function Home() {
         setLoading(true);
         try {
           const response = await axios.get(
-            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=temperature_120m,weather_code,relative_humidity_2m&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,weathercode&timezone=auto`
+            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,weather_code&hourly=weather_code,temperature_120m&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,weather_code&timezone=auto`
           );
           setWeatherData(response.data);
         } catch (error) {
@@ -94,14 +116,13 @@ function Home() {
           setLoading(false);
         }
       };
-
       fetchWeatherData();
     }
   }, [latitude, longitude]);
 
-  const currentHour = new Date().getHours();
-  const currentTemperature = weatherData.hourly?.temperature_120m?.[currentHour - 1] ?? 0;
-  const currentHumidity = weatherData.hourly?.relative_humidity_2m?.[currentHour - 1] ?? 50;
+  const currentTemperature = weatherData.current?.temperature_2m ?? "N/A";
+  const currentHumidity = weatherData.current?.relative_humidity_2m ?? "N/A";
+  const weatherImage = weatherData.current?.weather_code;
 
   return (
     <section className="home-section">
@@ -114,7 +135,7 @@ function Home() {
             <input
               className="place"
               type="text"
-              placeholder="Enter City"
+              placeholder={geolocationDenied ? "Write place name" : "Enter City"}
               value={searchQuery}
               onChange={handleInputChange}
               required
@@ -136,30 +157,35 @@ function Home() {
             )}
           </div>
 
-          <div className="current-location">
-            <div className="place-report">
-              <h1 className="currentPlace">
-                At - <span id="currentPlaceName">{selectedLocation ? selectedLocation.displayName.split(",")[0].trim() : "Sambalpuri"}</span>
-              </h1>
-              <h3 className="dt">Date - {currentFullDate}</h3>
-              <div className="humidity">
-              {loading ? <div className="loading"></div> : null}
-              <h3 className="humidity">Humidity :- {currentHumidity}%</h3>
+          {(latitude && longitude) || selectedLocation ? (
+            <div className="current-location">
+              <div className="place-report">
+                <h1 className="currentPlace">
+                  At - <span id="currentPlaceName">{selectedLocation ? selectedLocation.displayName : ""}</span>
+                </h1>
+                <h3 className="dt">Date - {currentFullDate}</h3>
+                <div className="humidity">
+                  {loading ? <div className="loading"></div> : null}
+                  <h3 className="humidity">Humidity: {currentHumidity}%</h3>
+                </div>
+              </div>
+              <div className="current-img-temp">
+                <div className="current-img-container">
+                  {loading ? <div className="loading"></div> : null}
+                  <img className="current-img" src={GettingWeatherImage(weatherImage)} alt="Weather" />
+                </div>
+                <div className="currentTemp">
+                  {loading ? <div className="loading"></div> : null}
+                  <h3 className="temp">{currentTemperature}°C</h3>
+                </div>
               </div>
             </div>
-            <div className="current-img-temp">
-              <img className="current-img" src="/src/assets/gifs/heavyrain.gif" alt="cloudy" />
-              <div className="currentTemp">
-                {loading ? <div className="loading"></div> : null}
-                <h3 className="temp">{currentTemperature}°C</h3>
-              </div>
-            </div>
-          </div>
-
-          {weatherData.hourly ? (
-            <HourlyForcast weatherData={weatherData.hourly} loading={loading} />
           ) : (
-            <div>Loading forecast...</div>
+            <p>Please enter a location to see weather details.</p>
+          )}
+
+          {weatherData.hourly && (
+            <HourlyForcast weatherData={weatherData.hourly} loading={loading} />
           )}
         </div>
 
