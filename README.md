@@ -34,6 +34,3 @@ A responsive weather forecast website that provides real-time weather informatio
 
 - **Vite**: Fast development build tool and local server for serving the app.
 - **Debounce Functionality**: Used to optimize the search feature and prevent unnecessary API calls.
-
-## Folder Structure
-
