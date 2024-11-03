@@ -39,7 +39,7 @@ function SevenDaysForecast({ weatherData, loading }) {
       <div className="forecastcontainer">
         {weatherData.temperature_2m_max.map((temp, index) => (
           <div className="days" key={index}>
-            <h4 className="seven-days-list">{generatingDay(index)}</h4>
+            <h3 className="seven-days-list">{generatingDay(index)}</h3>
             <h4>{temp ?? "N/A"}°C</h4>
             <img
               src={GettingWeatherImage(weatherImage?.[index])}
