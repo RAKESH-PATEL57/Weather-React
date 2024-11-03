@@ -558,12 +558,12 @@ input[type=text]:focus {
 }
 
 .sevendaysContainer h4 {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 }
 
 .home .sevendaysContainer .forecastcontainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   flex-direction: column;
   gap: 0.3rem;
 }
@@ -574,7 +574,7 @@ input[type=text]:focus {
   align-items: center;
   height: 4.5rem;
   width: 23vw;
-  /* border: 2px solid red; */
+  border: 2px solid red;
 }
 
 .days img {
