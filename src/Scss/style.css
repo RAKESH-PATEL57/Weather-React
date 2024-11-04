@@ -574,7 +574,6 @@ input[type=text]:focus {
   align-items: center;
   height: 4.5rem;
   width: 23vw;
-  border: 2px solid red;
 }
 
 .days img {
