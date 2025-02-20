@@ -5,7 +5,7 @@ import axios from "axios";
 import GettingWeatherImage from "./GettingWeatherImage";
 import Alert from "./Alert";
 
-import image from "/public/assets/bg.jpg";
+import image from "/public/assets/bg.webp";
 
 function Home() {
   const [latitude, setLatitude] = useState(null);
